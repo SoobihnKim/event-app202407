@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {redirect, useLoaderData, useParams, useRouteLoaderData} from "react-router-dom";
 import EventItem from "../components/EventItem";
+import { EVENT_URL } from "../config/host-config";
 
 const EventDetail = () => {
 
@@ -24,7 +25,7 @@ export const loader = async ({params}) => {
     // const {eventId: id} = useParams();
     // const [ev, setEv] = useState({});
 
-    const response = await fetch(`http://localhost:8282/events/${id}`);
+    const response = await fetch(`${EVENT_URL}/${id}`);
 
     if (!response.ok) {
         //.. 예외 처리
@@ -41,7 +42,7 @@ export const action = async ({ params }) => {
 
     if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
-    const response = await fetch(`http://localhost:8282/events/${params.eventId}`, {
+    const response = await fetch(`${EVENT_URL}/${params.eventId}`, {
         method: 'DELETE'
     });
 
