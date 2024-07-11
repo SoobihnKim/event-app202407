@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link, useLoaderData, json} from "react-router-dom";
-import EventList from "../components/EventList";
+import EventList from "../components/Event/EventList";
 import EventNavigation from "../layout/EventNavigation";
-import EventSkeleton from "../components/EventSkeleton";
+import EventSkeleton from "../components/Event/EventSkeleton";
 import { EVENT_URL } from "../config/host-config";
 
 // npm install loadsh

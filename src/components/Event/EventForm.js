@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from './EventForm.module.scss';
 import {useParams, useNavigate, Form, redirect} from "react-router-dom";
-import {EVENT_URL} from "../config/host-config";
+import {EVENT_URL} from "../../config/host-config";
 
 const EventForm = ({method, event = {}}) => {
 

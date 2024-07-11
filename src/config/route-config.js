@@ -13,7 +13,7 @@ import EventLayout from '../layout/EventLayout';
 import NewEvent from '../pages/NewEvent';
 import EditPage from '../pages/EditPage';
 import { action as manipulateAction }
-    from '../components/EventForm';
+    from '../components/Event/EventForm';
 import WelcomePage from "../pages/WelcomePage";
 import SignUpPage from "../pages/SignUpPage";
 
