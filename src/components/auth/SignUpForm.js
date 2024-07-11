@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '/SignUpForm.module.scss';
-import EmailInput from "./EmailInput";
+import styles from './SignUpForm.module.scss';
+import EmailInput from './EmailInput';
 
 const SignUpForm = () => {
     return (
