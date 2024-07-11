@@ -4,6 +4,18 @@ const EmailInput = () => {
 
     const inputRef = useRef();
 
+    // 이메일 패턴 검증
+    const validateEmail = (email) => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 간단한 이메일 패턴 검사
+        return emailPattern.test(email);
+    };
+
+    const changeHandler = e => {
+      const email = e.target.value;
+      const isValid = validateEmail(email);
+        console.log('isValid: ', isValid);
+    };
+
     // 렌더링 되자마자 입력창에 포커싱
     useEffect(() => {
         inputRef.current.focus();
@@ -16,6 +28,7 @@ const EmailInput = () => {
                 ref={inputRef}
                 type="email"
                 placeholder="Enter your email"
+                onChange={changeHandler}
             />
         </>
     );
