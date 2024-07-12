@@ -39,7 +39,7 @@ const EmailInput = ({ onSuccess }) => {
 
         // 이메일 중복확인 끝
         setEmailValid(true);
-        onSuccess();
+        onSuccess(email); // 이메일 부모한테 남기고 사라지기
 
     }, 1500);
 
