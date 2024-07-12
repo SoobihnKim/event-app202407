@@ -1,17 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './SignUpForm.module.scss';
 import { debounce } from 'lodash';
-import { AUTH_URL } from "../../config/host-config";
+import { AUTH_URL } from '../../config/host-config';
 
 const VerificationInput = ({ email }) => {
 
-    // 여러 개의 컴포넌트에 ref를 거는 방법
+    // 여러개의 컴포넌트에 ref를 거는 방법
     const inputsRef = useRef([]);
 
     // 입력한 인증코드를 저장
-    const [codes, setCodes] = useState([Array(4).fill('')]);
+    const [codes, setCodes] = useState(Array(4).fill(''));
 
-    // 에러 메시지 저장
+    // 에러메시지 저장
     const [error, setError] = useState('');
 
 
@@ -24,51 +24,50 @@ const VerificationInput = ({ email }) => {
     };
 
     // 서버에 검증요청 보내기
-    const verifyCode = debounce (async (code) => {
-        // console.log('요청 전송: ', code);
+    const verifyCode = debounce(async (code) => {
+        // console.log('요청 전송!: ', code);
 
         const response = await fetch(`${AUTH_URL}/code?email=${email}&code=${code}`);
         const flag = await response.json();
 
-        // console.log('코드 검증: ', flag);
-
+        // console.log('코드검증: ', flag);
         // 검증에 실패했을 때
         if (!flag) {
             setError('유효하지 않거나 만료된 코드입니다. 인증코드를 재발송합니다.');
-            // 기존 인증코드 지우기
+            // 기존 인증코드 상태값 비우기
             setCodes(Array(4).fill(''));
 
-            // inputsRef.current[0].value = ''; ...
+            inputsRef.current[0].focus();
             return;
         }
 
     }, 1500);
 
-
     const changeHandler = (index, inputValue) => {
 
-        const updatedCodes = [...codes];
+        const updatedCodes = [ ...codes ];
         updatedCodes[index - 1] = inputValue;
         console.log(updatedCodes);
 
-        // codes 변수에 입력한 숫자 담아놓기
+        // codes변수에 입력한 숫자 담아놓기
         setCodes(updatedCodes);
 
-        // 입력이 끝나면 다음 칸으로 포커싱 이동
+        // 입력이 끝나면 다음 칸으로 포커스 이동
         focusNextInput(index);
 
         // 입력한 숫자 합치기
-        // join() : 배열 안에 있는 요소를 전부 연결
+        // join() : 배열안에 있는 요소를 전부 연결
         if (updatedCodes.length === 4 && index === 4) {
-            const code = updatedCodes.join(''); // 구분자 기본값 , // 없애려면 빈 문자열
-
+            const code = updatedCodes.join('');
             // 서버로 인증코드 검증 요청 전송
             verifyCode(code);
         }
+
     };
 
+
     useEffect(() => {
-        // 처음엔 첫번째 간에 포커싱
+        // 처음엔 첫번째 칸에 포커싱
         inputsRef.current[0].focus();
     }, []);
 
@@ -79,20 +78,18 @@ const VerificationInput = ({ email }) => {
                 {
                     Array.from(new Array(4)).map((_, index) => (
                         <input
-                            // ref={(a) => console.log(a)} a는 나 자신
                             ref={($input) => inputsRef.current[index] = $input}
                             key={index}
                             type='text'
                             className={styles.codeInput}
                             maxLength={1}
                             onChange={(e) => changeHandler(index + 1, e.target.value)}
-                            // onChange={changeHandler.bind(null, index)}
                             value={codes[index]}
                         />
                     ))
                 }
             </div>
-                {error && <p className={styles.errorMessage}>{error}</p> }
+            { error && <p className={styles.errorMessage}>{error}</p> }
         </>
     );
 };
