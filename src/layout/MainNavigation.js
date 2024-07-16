@@ -1,12 +1,12 @@
 import React from 'react';
-import {NavLink, useLoaderData, useRouteLoaderData} from 'react-router-dom';
+import {Form, NavLink, useLoaderData, useRouteLoaderData} from 'react-router-dom';
 import styles from './MainNavigation.module.scss';
 
 const MainNavigation = () => {
 
     // 상위 라우트 페이지의 loader 데이터 불러오기
     const userData = useRouteLoaderData('user-data');
-    console.log('userData: ', userData);
+    // console.log('userData: ', userData);
 
     const activeFn = ({isActive}) => {
         // NavLink 컴포넌트에 className 프롭스에 함수를 전달하면
@@ -26,12 +26,13 @@ const MainNavigation = () => {
                         <NavLink to='events' className={activeFn}>Events</NavLink>
                     </li>
 
-                    { userData && (
+                    {userData && (
                         <li>
-                            <button style={{width: '100%'}}>Logout</button>
+                            <Form action='/logout' method='POST'>
+                                <button style={{width: '100%'}}>Logout</button>
+                            </Form>
                         </li>
-                    )
-                    }
+                    )}
                 </ul>
             </nav>
         </header>
