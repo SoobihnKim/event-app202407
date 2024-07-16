@@ -2,8 +2,8 @@ import React from "react";
 
 import styles from './EventForm.module.scss';
 import {useParams, useNavigate, Form, redirect} from "react-router-dom";
-import {EVENT_URL} from "../../config/host-config";
-import {getUserToken} from "../../config/auth";
+import {EVENT_URL} from "../config/host-config";
+import {getUserToken} from "../config/auth";
 
 const EventForm = ({method, event = {}}) => {
 

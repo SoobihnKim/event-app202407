@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {redirect, useLoaderData, useParams, useRouteLoaderData} from "react-router-dom";
-import EventItem from "../components/Event/EventItem";
-import { EVENT_URL } from "../config/host-config";
-import {getUserToken} from "../config/auth";
+import React from 'react';
+import { redirect, useRouteLoaderData } from 'react-router-dom';
+import EventItem from '../components/EventItem';
+import { EVENT_URL } from '../config/host-config';
+import { getUserToken } from '../config/auth';
 
 const EventDetail = () => {
 
@@ -28,7 +28,7 @@ export const loader = async ({params}) => {
 
     const response = await fetch(`${EVENT_URL}/${id}`, {
         method: 'GET',
-        headers: {'Authorization': 'Bearer ' + getUserToken() }
+        headers: { 'Authorization': 'Bearer ' + getUserToken() }
     });
 
     if (!response.ok) {
@@ -48,7 +48,7 @@ export const action = async ({ params }) => {
 
     const response = await fetch(`${EVENT_URL}/${params.eventId}`, {
         method: 'DELETE',
-        headers: {'Authorization': 'Bearer ' + getUserToken() }
+        headers: { 'Authorization': 'Bearer ' + getUserToken() }
     });
 
     if(!response.ok) {
