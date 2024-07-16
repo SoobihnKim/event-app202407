@@ -1,25 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import LoginForm from "../components/auth/LoginForm";
 import Main from "../components/Main";
+import {useRouteLoaderData} from "react-router-dom";
 
 const WelcomePage = () => {
 
     console.log('welcomePage 실행');
 
-    // 로그인 여부
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem);
-
-    useEffect(() => {
-        const userData = localStorage.getItem('userData');
-
-        if (userData) setIsLoggedIn(true);
-        else setIsLoggedIn(false);
-    }, [isLoggedIn]);
+    // 상위 라우트 페이지의 loader 데이터 불러오기
+    const userData = useRouteLoaderData('user-data');
+    console.log('userData: ', userData);
 
     return (
         <>
-            {!isLoggedIn && <LoginForm/>}
-            {isLoggedIn && <Main/>}
+            {!userData && <LoginForm/>}
+            {userData && <Main/>}
         </>
     );
 };

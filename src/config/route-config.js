@@ -17,6 +17,7 @@ import { action as manipulateAction }
 import WelcomePage from "../pages/WelcomePage";
 import SignUpPage from "../pages/SignUpPage";
 import {loginAction} from "../components/auth/LoginForm";
+import {userDataLoader} from "./auth";
 
 
 // 라우터 설정
@@ -70,9 +71,11 @@ const homeRouter = [
 
 export const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/', // 최상단에 loader
         element: <RootLayout />,
         errorElement: <ErrorPage />,
+        loader: userDataLoader,
+        id: 'user-data', // id를 통해 <Home />, homeRouter 쓸 수 있음
         children: [
             {
                 path: '/',

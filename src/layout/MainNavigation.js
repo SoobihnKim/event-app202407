@@ -1,8 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useLoaderData} from 'react-router-dom';
 import styles from './MainNavigation.module.scss';
 
 const MainNavigation = () => {
+
+    // const data = useLoaderData();
+    // console.log('data: ', data);
 
     const activeFn = ({ isActive }) => {
       // NavLink 컴포넌트에 className 프롭스에 함수를 전달하면
