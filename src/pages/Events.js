@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Link, useLoaderData, json} from "react-router-dom";
+import {Link, useLoaderData, json, useRouteLoaderData} from "react-router-dom";
 import EventList from "../components/Event/EventList";
 import EventNavigation from "../layout/EventNavigation";
 import EventSkeleton from "../components/Event/EventSkeleton";
@@ -10,6 +10,8 @@ import {debounce, throttle} from 'lodash';
 
 
 const Events = () => {
+
+    const {token} = useRouteLoaderData('user-data');
 
     // loader가 리턴한 데이터 받아오기
     // const eventList = useLoaderData();
@@ -46,7 +48,9 @@ const Events = () => {
         console.log('start loading...');
         setLoading(true);
 
-        const response = await fetch(`${EVENT_URL}/page/${currentPage}?sort=date`);
+        const response = await fetch(`${EVENT_URL}/page/${currentPage}?sort=date`, {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
         const {events: loadedEvents, totalCount} = await response.json();
 
         console.log('loaded: ', {loadedEvents, totalCount, len: loadedEvents.length});
