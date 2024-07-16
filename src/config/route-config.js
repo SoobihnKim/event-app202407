@@ -16,6 +16,7 @@ import { action as manipulateAction }
     from '../components/Event/EventForm';
 import WelcomePage from "../pages/WelcomePage";
 import SignUpPage from "../pages/SignUpPage";
+import {loginAction} from "../components/auth/LoginForm";
 
 
 // 라우터 설정
@@ -23,7 +24,7 @@ const eventsRouter = [
     {
         index: true,
         element: <Events />,
-        // loader: eventListLoader,
+        // loader: eventListLoader, 최초 한번만 실행하는데 무한스크롤로 계속 호출해야해서 안씀
     },
     {
         path: ':eventId',
@@ -57,7 +58,8 @@ const homeRouter = [
 
     {
         index: true,
-        element: <WelcomePage />
+        element: <WelcomePage />,
+        action: loginAction
     }, // 웰컴 페이지(로그인 화면 or 로그인 완료 화면)
     {
         path: 'sign-up',
