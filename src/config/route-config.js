@@ -17,7 +17,7 @@ import { action as manipulateAction }
 import WelcomePage from "../pages/WelcomePage";
 import SignUpPage from "../pages/SignUpPage";
 import {loginAction} from "../components/auth/LoginForm";
-import {userDataLoader} from "./auth";
+import {authCheckLoader, userDataLoader} from "./auth";
 import {logoutAction} from "../pages/Logout";
 
 
@@ -27,6 +27,7 @@ const eventsRouter = [
         index: true,
         element: <Events />,
         // loader: eventListLoader, 최초 한번만 실행하는데 무한스크롤로 계속 호출해야해서 안씀
+
     },
     {
         path: ':eventId',
@@ -90,6 +91,7 @@ export const router = createBrowserRouter([
             {
                 path: 'events',
                 element: <EventLayout />,
+                loader: authCheckLoader,
                 children: eventsRouter
             },
         ]
