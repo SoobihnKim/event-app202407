@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import EventList from '../components/EventList';
 import EventSkeleton from '../components/EventSkeleton';
-import { EVENT_URL } from '../config/host-config';
-import { useRouteLoaderData } from 'react-router-dom';
+import {EVENT_URL} from '../config/host-config';
+import {useRouteLoaderData} from 'react-router-dom';
 
 // npm install loadsh
 // import { debounce, throttle } from 'lodash';
 
 const Events = () => {
 
-    const { token } = useRouteLoaderData('user-data');
+    const {token} = useRouteLoaderData('user-data');
 
     // loader가 리턴한 데이터 받아오기
     // const eventList = useLoaderData();
@@ -36,7 +36,7 @@ const Events = () => {
 
 
     // 서버로 목록 조회 요청보내기
-    const loadEvents = async() => {
+    const loadEvents = async () => {
 
         if (isFinish) {
             console.log('loading finished!');
@@ -47,30 +47,35 @@ const Events = () => {
         setLoading(true);
 
         const response = await fetch(`${EVENT_URL}/page/${currentPage}?sort=date`, {
-            headers: { 'Authorization': 'Bearer ' + token }
+            headers: {'Authorization': 'Bearer ' + token}
         });
-        const { events: loadedEvents, totalCount } = await response.json();
+        const {events: loadedEvents, totalCount} = await response.json();
 
-        console.log('loaded: ', { loadedEvents, totalCount, len: loadedEvents.length });
+        console.log('loaded: ', {loadedEvents, totalCount, len: loadedEvents.length});
 
         // console.log('loaded: ', loadedEvents);
 
-        const updatedEvents = [...events, ...loadedEvents ];
-        setEvents(updatedEvents);
-        setLoading(false);
-        // 로딩이 끝나면 페이지번호를 1 늘려놓는다.
-        setCurrentPage(prevPage => prevPage + 1);
-        console.log('end loading!!');
+        const updatedEvents = [...events, ...loadedEvents];
 
-        // 로딩이 끝나면 더 이상 가져올게 있는지 여부를 체크한다.
-        setIsFinish(totalCount === updatedEvents.length);
+        setTimeout(() => {
 
-        // 로딩 후 지금까지 불러온 데이터 개수(현재 렌더링된 개수)를 총 데이터 개수에서 차감
-        const restEventsCount = totalCount - updatedEvents.length;
+            setLoading(false);
+            setEvents(updatedEvents);
+            setLoading(false);
+            // 로딩이 끝나면 페이지번호를 1 늘려놓는다.
+            setCurrentPage(prevPage => prevPage + 1);
+            console.log('end loading!!');
 
-        // skeleton 개수 구하기 -> 남은 개수가 4보다 크면 4로 세팅 4보다 작으면 그 수로 세팅
-        const skeletonCnt = Math.min(4, restEventsCount);
-        setSkeletonCount(skeletonCnt);
+            // 로딩이 끝나면 더 이상 가져올게 있는지 여부를 체크한다.
+            setIsFinish(totalCount === updatedEvents.length);
+
+            // 로딩 후 지금까지 불러온 데이터 개수(현재 렌더링된 개수)를 총 데이터 개수에서 차감
+            const restEventsCount = totalCount - updatedEvents.length;
+
+            // skeleton 개수 구하기 -> 남은 개수가 4보다 크면 4로 세팅 4보다 작으면 그 수로 세팅
+            const skeletonCnt = Math.min(4, restEventsCount);
+            setSkeletonCount(skeletonCnt);
+        }, 800);
 
     };
 
@@ -138,12 +143,12 @@ const Events = () => {
 
     return (
         <>
-            <EventList eventList={events} />
+            <EventList eventList={events}/>
             <div
                 ref={skeletonBoxRef}
                 // style={{ height: '300px', background: 'yellow' }}
             >
-                {loading && <EventSkeleton count={skeletonCount} />}
+                {loading && <EventSkeleton count={skeletonCount}/>}
             </div>
         </>
     );
