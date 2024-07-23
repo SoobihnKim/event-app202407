@@ -10,8 +10,8 @@ let backendHostName;
 
 if (clientHostName === 'localhost') {
     backendHostName = 'http://localhost:' + LOCAL_PORT;
-} else if (clientHostName === 'www.bananagrape.co.kr') {
-    backendHostName = 'https://api.myapi.com';
+} else if (clientHostName === 'reactbucket7788.s3-website.ap-northeast-2.amazonaws.com') {
+    backendHostName = 'https://3.36.122.102:8989';
 }
 
 const API_BASE_URL = backendHostName;
