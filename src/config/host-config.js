@@ -11,7 +11,7 @@ let backendHostName;
 if (clientHostName === 'localhost') {
     backendHostName = 'http://localhost:' + LOCAL_PORT;
 } else if (clientHostName === 'reactbucket7788.s3-website.ap-northeast-2.amazonaws.com') {
-    backendHostName = 'https://3.39.0.24:8989';
+    backendHostName = 'http://3.36.91.126:8989';
 }
 
 const API_BASE_URL = backendHostName;
