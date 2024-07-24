@@ -13,7 +13,7 @@ const LoginForm = () => {
                 method="post"
                 className={styles.form}
             >
-                <h1>로그인</h1>
+                <h1>자동 배포 로그인</h1>
                 <p>
                     <label htmlFor="email">Email</label>
                     <input
