@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import EventForm from "../components/EventForm";
-import {redirect, useNavigate, useRouteLoaderData} from "react-router-dom";
+import {useNavigate, useRouteLoaderData} from "react-router-dom";
 import EventContext from "../components/context/event-context";
 
 const NewEvent = () => {

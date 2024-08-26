@@ -13,7 +13,7 @@ const ProductDetail = () => {
         <>
             <h1>제품 상세보기 화면</h1>
             <p>
-                제품ID: {params.prodId}, 페이지번호: {params.pageNo}
+                제품 ID: {params.prodId}, 페이지번호: {params.pageNo}
             </p>
         </>
     );
